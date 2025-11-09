@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Sistema de Cifrado César ASCII</h1>
+            <h1>¿Cómo funciona la criptografía?</h1>
             <p class="subtitle">Demostración Interactiva de Criptografía</p>
         </header>
 
@@ -35,8 +35,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="encryptionKey">Clave numérica (0-255):</label>
-                    <input type="number" id="encryptionKey" placeholder="Ejemplo: 123" min="0" max="255">
+                    <label for="encryptionKey">Clave numérica (cualquier número entero):</label>
+                    <input type="number" id="encryptionKey" placeholder="Ejemplo: 123456789">
                 </div>
                 
                 <button class="btn-primary" onclick="encryptMessage()">Cifrar y Transmitir</button>
@@ -74,15 +74,8 @@
 
             <!-- Sección de Visualización Pública -->
             <section id="display" class="tab-panel">
-                <div class="panel-header">
-                    <h2>Vista Pública</h2>
-                    <p>Mensaje cifrado para mostrar a la audiencia</p>
-                </div>
-                
-                <div class="public-display">
-                    <div class="display-label">MENSAJE CIFRADO</div>
-                    <div class="display-content" id="publicMessage">Esperando transmisión...</div>
-                    <div class="display-footer">El mensaje se actualizará automáticamente</div>
+                <div class="public-display-fullscreen">
+                    <div class="fullscreen-message" id="publicMessageFullscreen">Esperando transmisión...</div>
                 </div>
             </section>
         </main>

@@ -44,7 +44,7 @@ socket.on('newEncryptedMessage', (data) => {
     
     // Actualizar la interfaz
     document.getElementById('receivedMessage').textContent = currentEncryptedMessage;
-    document.getElementById('publicMessage').textContent = currentEncryptedMessage;
+    document.getElementById('publicMessageFullscreen').textContent = currentEncryptedMessage;
     
     // Mostrar notificación si no está en la vista pública
     if (!document.getElementById('display').classList.contains('active')) {
@@ -52,7 +52,7 @@ socket.on('newEncryptedMessage', (data) => {
     }
 });
 
-// Algoritmo de Cifrado César ASCII Corregido
+// Algoritmo de Cifrado César ASCII (acepta cualquier número entero)
 function asciiCaesarCipher(str, key, decrypt = false) {
     const ASCII_MIN = 32;   // Espacio
     const ASCII_MAX = 126;  // ~
@@ -64,6 +64,7 @@ function asciiCaesarCipher(str, key, decrypt = false) {
     }
     
     // Normalizar la clave al rango [0, RANGE_SIZE-1]
+    // Esto permite cualquier número entero (positivo o negativo)
     key = ((key % RANGE_SIZE) + RANGE_SIZE) % RANGE_SIZE;
     
     let result = '';
@@ -106,12 +107,7 @@ function encryptMessage() {
         return;
     }
     
-    if (key < 0 || key > 255) {
-        showStatus('La clave debe estar entre 0 y 255', 'error');
-        return;
-    }
-    
-    // Cifrar el mensaje
+    // Cifrar el mensaje (acepta CUALQUIER número entero)
     const encrypted = asciiCaesarCipher(message, key);
     
     // Enviar al servidor
@@ -174,20 +170,23 @@ function showNotification(message) {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: var(--success-color);
-        color: white;
+        background: var(--accent-color);
+        color: var(--primary-color);
         padding: 1rem;
         border-radius: 6px;
         box-shadow: var(--shadow);
         z-index: 1000;
         max-width: 300px;
+        font-weight: bold;
     `;
     
     document.body.appendChild(notification);
     
     // Remover después de 3 segundos
     setTimeout(() => {
-        document.body.removeChild(notification);
+        if (document.body.contains(notification)) {
+            document.body.removeChild(notification);
+        }
     }, 3000);
 }
 
