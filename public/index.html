@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cifrado César ASCII</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sistema de Cifrado César ASCII</h1>
+            <p class="subtitle">Demostración Interactiva de Criptografía</p>
+        </header>
+
+        <div class="connection-status" id="status">Conectando al servidor...</div>
+        
+        <nav class="tabs">
+            <button class="tab active" data-tab="encrypt">Cifrar Mensaje</button>
+            <button class="tab" data-tab="decrypt">Descifrar Mensaje</button>
+            <button class="tab" data-tab="display">Vista Pública</button>
+        </nav>
+
+        <main class="tab-content">
+            <!-- Sección de Cifrado -->
+            <section id="encrypt" class="tab-panel active">
+                <div class="panel-header">
+                    <h2>Cifrado de Mensaje</h2>
+                    <p>Ingrese el mensaje y la clave para cifrar</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="inputText">Mensaje a cifrar:</label>
+                    <textarea id="inputText" placeholder="Escriba su mensaje aquí..." rows="4"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="encryptionKey">Clave numérica (0-255):</label>
+                    <input type="number" id="encryptionKey" placeholder="Ejemplo: 123" min="0" max="255">
+                </div>
+                
+                <button class="btn-primary" onclick="encryptMessage()">Cifrar y Transmitir</button>
+                
+                <div class="status-box">
+                    <label>Estado del sistema:</label>
+                    <div id="encryptedStatus" class="status-message">Esperando entrada...</div>
+                </div>
+            </section>
+
+            <!-- Sección de Descifrado -->
+            <section id="decrypt" class="tab-panel">
+                <div class="panel-header">
+                    <h2>Descifrado de Mensaje</h2>
+                    <p>El mensaje cifrado aparecerá automáticamente cuando sea transmitido</p>
+                </div>
+                
+                <div class="message-display">
+                    <label>Mensaje cifrado recibido:</label>
+                    <div class="message-box" id="receivedMessage">No hay mensajes recibidos</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="decryptionKey">Clave para descifrar:</label>
+                    <input type="number" id="decryptionKey" placeholder="Ingrese la clave numérica">
+                </div>
+                
+                <button class="btn-primary" onclick="decryptMessage()">Descifrar Mensaje</button>
+                
+                <div class="message-display">
+                    <label>Mensaje original:</label>
+                    <div class="message-box" id="decryptedResult">---</div>
+                </div>
+            </section>
+
+            <!-- Sección de Visualización Pública -->
+            <section id="display" class="tab-panel">
+                <div class="panel-header">
+                    <h2>Vista Pública</h2>
+                    <p>Mensaje cifrado para mostrar a la audiencia</p>
+                </div>
+                
+                <div class="public-display">
+                    <div class="display-label">MENSAJE CIFRADO</div>
+                    <div class="display-content" id="publicMessage">Esperando transmisión...</div>
+                    <div class="display-footer">El mensaje se actualizará automáticamente</div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>Sistema de Demostración Criptográfica &copy; 2024</p>
+        </footer>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
